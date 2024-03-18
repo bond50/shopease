@@ -38,10 +38,11 @@ import {
     DELETE_USER_FAIL,
     LOGOUT_SUCCESS,
     LOGOUT_FAIL,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    LOAD_USER_DONE
 } from '../constants/userConstants'
 
-export const authReducer = (state = { user: {} }, action) => {
+export const authReducer = (state = {user: {}}, action) => {
     switch (action.type) {
 
         case LOGIN_REQUEST:
@@ -98,6 +99,12 @@ export const authReducer = (state = { user: {} }, action) => {
                 ...state,
                 error: null
             }
+
+        case LOAD_USER_DONE:
+            return {
+                ...state,
+                loading: false
+            };
 
         default:
             return state
@@ -210,7 +217,7 @@ export const forgotPasswordReducer = (state = {}, action) => {
     }
 }
 
-export const allUsersReducer = (state = { users: [] }, action) => {
+export const allUsersReducer = (state = {users: []}, action) => {
     switch (action.type) {
 
         case ALL_USERS_REQUEST:
@@ -244,7 +251,7 @@ export const allUsersReducer = (state = { users: [] }, action) => {
     }
 }
 
-export const userDetailsReducer = (state = { user: {} }, action) => {
+export const userDetailsReducer = (state = {user: {}}, action) => {
     switch (action.type) {
 
         case USER_DETAILS_REQUEST:

@@ -1,22 +1,20 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, {Fragment, useState, useEffect} from 'react'
+import {Link} from 'react-router-dom'
 
 import Loader from '../layout/Loader'
 import MetaData from '../layout/MetaData'
 
-import { useAlert } from 'react-alert'
-import { useDispatch, useSelector } from 'react-redux'
-import { login, clearErrors } from '../../actions/userActions'
+import {useAlert} from 'react-alert'
+import {useDispatch, useSelector} from 'react-redux'
+import {login, clearErrors} from '../../actions/userActions'
 
-const Login = ({ history, location }) => {
+const Login = ({history, location}) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const alert = useAlert();
     const dispatch = useDispatch();
-
-    const { isAuthenticated, error, loading } = useSelector(state => state.auth);
+    const {isAuthenticated, error, loading} = useSelector(state => state.auth);
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
@@ -31,7 +29,7 @@ const Login = ({ history, location }) => {
             dispatch(clearErrors());
         }
 
-    }, [dispatch, alert, isAuthenticated, error, history])
+    }, [dispatch, alert, isAuthenticated, error, history, redirect])
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -40,9 +38,9 @@ const Login = ({ history, location }) => {
 
     return (
         <Fragment>
-            {loading ? <Loader /> : (
+            {loading ? <Loader/> : (
                 <Fragment>
-                    <MetaData title={'Login'} />
+                    <MetaData title={'Login'}/>
 
                     <div className="row wrapper">
                         <div className="col-10 col-lg-5">

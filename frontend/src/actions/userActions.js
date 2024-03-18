@@ -35,7 +35,7 @@ import {
     DELETE_USER_FAIL,
     LOGOUT_SUCCESS,
     LOGOUT_FAIL,
-    CLEAR_ERRORS
+    CLEAR_ERRORS, LOAD_USER_DONE,
 } from '../constants/userConstants'
 
 // Login
@@ -49,6 +49,8 @@ export const login = (email, password) => async (dispatch) => {
                 'Content-Type': 'application/json'
             }
         }
+
+
 
         const { data } = await axios.post('/api/v1/login', { email, password }, config)
 
@@ -96,9 +98,13 @@ export const register = (userData) => async (dispatch) => {
 export const loadUser = () => async (dispatch) => {
     try {
 
+
         dispatch({ type: LOAD_USER_REQUEST })
 
+
         const { data } = await axios.get('/api/v1/me')
+
+        console.log(data)
 
         dispatch({
             type: LOAD_USER_SUCCESS,
@@ -110,6 +116,10 @@ export const loadUser = () => async (dispatch) => {
             type: LOAD_USER_FAIL,
             payload: error.response.data.message
         })
+    }finally {
+        // Ensure that loading state is set to false regardless of success or failure
+        dispatch({ type: CLEAR_ERRORS}); // Clear any previous errors
+        dispatch({ type: LOAD_USER_DONE}); // Additional action to indicate that loading is done
     }
 }
 

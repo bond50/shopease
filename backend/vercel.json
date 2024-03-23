@@ -1,12 +1,11 @@
 {
-    "version":2,
-    "builds": [
-      { "src": "*.js", "use": "@vercel/node" }
-    ],
-    "routes": [
-        {
-          "src": "/(.*)",
-          "dest": "/"
-        }
-    ]
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/build",
+  "framework": "create-react-app",
+  "rewrites": [
+    {
+      "source": "/backend/(.*)",
+      "destination": "/backend/server.js"
+    }
+  ]
   }

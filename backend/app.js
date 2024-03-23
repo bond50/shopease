@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
@@ -18,6 +19,9 @@ const products = require('./routes/product');
 const auth = require('./routes/auth');
 const payment = require('./routes/payment');
 const order = require('./routes/order');
+app.get("/", (req, res) => {
+    res.json("Hello. Its working");
+})
 app.use('/api/v1', products)
 app.use('/api/v1', auth)
 app.use('/api/v1', payment)
@@ -31,6 +35,13 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
     })
 }
 
+app.use(cors(
+    {
+        origin: ["https://deploy-mern-frontend.vercel.app"],
+        methods: ["POST", "GET"],
+        credentials: true
+    }
+));
 
 // Middleware to handle errors
 app.use(errorMiddleware);

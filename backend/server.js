@@ -1,6 +1,7 @@
 const app = require('./app')
 const connectDatabase = require('./config/database')
 const cloudinary = require('cloudinary')
+const connectToDB = require("./config/database");
 
 require('dotenv').config();
 // Handle Uncaught exceptions
@@ -14,7 +15,7 @@ process.on('uncaughtException', err => {
 
 
 // Connecting to database
-connectDatabase();
+connectToDB();
 
 
 // Setting up cloudinary configuration
